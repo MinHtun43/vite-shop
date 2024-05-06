@@ -66,6 +66,12 @@
         </button>
         </div>
         <div class="cardItemGroup h-[500px] overflow-scroll flex-grow flex flex-col gap-5 mb-auto">
+          <div class="hidden last:flex justify-center items-center h-full">
+            <div class="text-center">
+              <img src="./img/No data-cuate.png" alt="">
+              <p>There is no items</p>
+            </div>
+          </div>
         </div>
         <div class="card-footer ">
           <div class="flex flex-col gap-3 border-t-2 border-slate-400 py-2">
@@ -143,7 +149,7 @@
           </div>
           <hr class="border-slate-500 mb-3">
           <p class="font-bold mb-3">$ <span class="product-price">109.5</span></p>
-          <button class="add-card-btn w-full border-2 rounded border-slate-700 p-2 active:scale-90 duration-200">Add to
+          <button class="add-card-btn w-full border-2 rounded border-slate-700 p-2 active:scale-90 duration-200 disabled:bg-slate-700 disabled:text-white disabled:active:scale-100">Add to
             card</button>
         </div>
       </div>
@@ -162,7 +168,9 @@
           </button>
           <p class="product-title w-full font-bold mt-[30px] mb-3 line-clamp-1">Fjallraven - Foldsack No. 1...</p>
           <div class="flex justify-between">
-            <p>$ <span class="product-item-price"> 109.5</span></p>
+            <p>$ <span class="product-item-cost"> 109.5</span>
+              <span class="product-item-price hidden"> 109.5</span></p>
+            
             <div class="flex">
               <button class="active:scale-75 duration-300  sub-q-btn w-8 inline-block ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

@@ -39,6 +39,9 @@ products.forEach(pro => productGroup.append(createProduct(pro)))
 
 export const handlerProduct = (event) => {
       if(event.target.classList.contains("add-card-btn")){
+          const currentBtn = event.target;
+          currentBtn.setAttribute("disabled","true");
+          currentBtn.innerText = "Added..."
           const currentProductCard = event.target.closest(".product-card");
           const currentProductId = parseInt(currentProductCard.getAttribute("product-id"));
           const currentProduct = products.find(product => product.id === currentProductId)

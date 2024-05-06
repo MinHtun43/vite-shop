@@ -11,6 +11,7 @@ export const createCard = (product, qualtity) => {
   template.querySelector(".product-img").src = product.image;
   template.querySelector(".product-title").innerText = product.title;
   template.querySelector(".product-item-price").innerText = product.price;
+  template.querySelector(".product-item-cost").innerText = product.price * qualtity;
   template.querySelector(".product-qualtity").innerText = qualtity;
   return template;
 };
@@ -27,7 +28,7 @@ export const updateCardCount = () => {
 };
 
 export const countCardCostTotal = () => {
-     const total = [...document.querySelectorAll(".product-item-price")].reduce(
+     const total = [...document.querySelectorAll(".product-item-cost")].reduce(
           (pv , cv) => pv + parseFloat(cv.innerText) ,0
      )
      return total;
@@ -57,5 +58,45 @@ export const handlerCardItem = (event) => {
                  updateCardTotal();
                }
              });
+      }else if(event.target.classList.contains("add-q-btn")){
+        const currentCard = event.target.closest(".card-item");
+        const currentQualtity = currentCard.querySelector(".product-qualtity");
+        const currentPrice = currentCard.querySelector(".product-item-price");
+        const currentCost = currentCard.querySelector(".product-item-cost");
+
+        currentQualtity.innerText = parseInt(currentQualtity.innerText) + 1;
+        currentCost.innerText = currentPrice.innerText * currentQualtity.innerText;
+        updateCardTotal()
+        console.log("add btn");
+      }
+      else if(event.target.classList.contains("sub-q-btn")){
+        const currentCard = event.target.closest(".card-item");
+        const currentQualtity = currentCard.querySelector(".product-qualtity");
+        const currentPrice = currentCard.querySelector(".product-item-price");
+        const currentCost = currentCard.querySelector(".product-item-cost");
+
+        if(currentQualtity.innerText > 1){
+          currentQualtity.innerText = parseInt(currentQualtity.innerText) - 1;
+        currentCost.innerText = currentPrice.innerText * currentQualtity.innerText;
+        updateCardTotal()
+        }else{
+          const currentItem = event.target.closest(".card-item");
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              currentItem.remove();
+              updateCardCount();
+              updateCardTotal();
+            }
+          });
+        }
+        console.log("sub btn");
       }
 }
