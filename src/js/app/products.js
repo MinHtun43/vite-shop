@@ -27,6 +27,12 @@ export const createProduct = (product) => {
      
      template.querySelector(".product-star").innerHTML = createStar(product.rating.rate);
 
+     const isExitedInCard = cardItemGroup.querySelector(`[card-product-id='${product.id}']`)
+     if(isExitedInCard){
+          template.querySelector(".add-card-btn").setAttribute("disabled","true");
+          template.querySelector(".add-card-btn").innerText = "Added..."
+     }
+
      return template;
 }
 

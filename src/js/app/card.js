@@ -4,10 +4,12 @@ import {
   cardItemCount,
   cardItemTemplate,
   cardItemTotal,
+  productGroup,
 } from "../core/selectors";
 
 export const createCard = (product, qualtity) => {
   const template = cardItemTemplate.content.cloneNode(true);
+  template.querySelector(".card-item").setAttribute("card-product-id" , product.id )
   template.querySelector(".product-img").src = product.image;
   template.querySelector(".product-title").innerText = product.title;
   template.querySelector(".product-item-price").innerText = product.price;
@@ -42,6 +44,11 @@ export const updateCardTotal = () => {
 export const handlerCardItem = (event) => {
       if(event.target.classList.contains("card-item-remove")){
           const currentItem = event.target.closest(".card-item");
+          const currentProductId = currentItem.getAttribute("card-product-id");
+          const currentProduct = productGroup.querySelector(`[product-id = '${currentProductId}']`);
+
+          const currentProductAddCardBtn = currentProduct.querySelector(".add-card-btn");
+          
           
           Swal.fire({
                title: "Are you sure?",
@@ -56,6 +63,8 @@ export const handlerCardItem = (event) => {
                  currentItem.remove();
                  updateCardCount();
                  updateCardTotal();
+                 currentProductAddCardBtn.innerText = "Add to Card";
+                 currentProductAddCardBtn.removeAttribute("disabled")
                }
              });
       }else if(event.target.classList.contains("add-q-btn")){
@@ -65,7 +74,7 @@ export const handlerCardItem = (event) => {
         const currentCost = currentCard.querySelector(".product-item-cost");
 
         currentQualtity.innerText = parseInt(currentQualtity.innerText) + 1;
-        currentCost.innerText = currentPrice.innerText * currentQualtity.innerText;
+        currentCost.innerText = (currentPrice.innerText * currentQualtity.innerText).toFixed(2);
         updateCardTotal()
         console.log("add btn");
       }
@@ -77,10 +86,14 @@ export const handlerCardItem = (event) => {
 
         if(currentQualtity.innerText > 1){
           currentQualtity.innerText = parseInt(currentQualtity.innerText) - 1;
-        currentCost.innerText = currentPrice.innerText * currentQualtity.innerText;
+        currentCost.innerText = (currentPrice.innerText * currentQualtity.innerText).toFixed(2);
         updateCardTotal()
         }else{
           const currentItem = event.target.closest(".card-item");
+          const currentProductId = currentItem.getAttribute("card-product-id");
+          const currentProduct = productGroup.querySelector(`[product-id = '${currentProductId}']`);
+
+          const currentProductAddCardBtn = currentProduct.querySelector(".add-card-btn");
           Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -94,6 +107,8 @@ export const handlerCardItem = (event) => {
               currentItem.remove();
               updateCardCount();
               updateCardTotal();
+              currentProductAddCardBtn.innerText = "Add to Card";
+                 currentProductAddCardBtn.removeAttribute("disabled")
             }
           });
         }
