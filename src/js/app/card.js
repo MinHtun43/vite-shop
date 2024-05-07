@@ -45,9 +45,7 @@ export const handlerCardItem = (event) => {
       if(event.target.classList.contains("card-item-remove")){
           const currentItem = event.target.closest(".card-item");
           const currentProductId = currentItem.getAttribute("card-product-id");
-          const currentProduct = productGroup.querySelector(`[product-id = '${currentProductId}']`);
-
-          const currentProductAddCardBtn = currentProduct.querySelector(".add-card-btn");
+          
           
           
           Swal.fire({
@@ -63,8 +61,12 @@ export const handlerCardItem = (event) => {
                  currentItem.remove();
                  updateCardCount();
                  updateCardTotal();
+                 const currentProduct = productGroup.querySelector(`[product-id = '${currentProductId}']`);
+                 if(currentProduct){
+                  const currentProductAddCardBtn = currentProduct.querySelector(".add-card-btn");
                  currentProductAddCardBtn.innerText = "Add to Card";
                  currentProductAddCardBtn.removeAttribute("disabled")
+                 }
                }
              });
       }else if(event.target.classList.contains("add-q-btn")){

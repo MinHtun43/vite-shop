@@ -10,3 +10,4 @@ export const productStar = document.querySelector(".product-star");
 export const cardCount = document.querySelector(".card-count");
 export const cardItemCount = document.querySelector("#cardItemCount");
 export const cardItemTotal = document.querySelector(".card-item-total");
+export const openDrawer = document.querySelector("#openDrawer");
